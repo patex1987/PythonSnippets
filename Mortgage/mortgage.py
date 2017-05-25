@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-__taskuid__ = ''
 '''
 Everybody, who is going to take a mortgage would like to know, whether
 the payments and interests are calculated well.
@@ -87,8 +85,6 @@ calculate/generate:
 '''
 
 
-# this function will require the special formula listed in the task description
-# to calculate the monthly payment
 def calculate_monthly_payment(loan, monthly_rate, num_periods):
     '''
     monthly_payment = L*(r * (1 + r)**n) / ((1 + r)**n-1)
@@ -97,7 +93,6 @@ def calculate_monthly_payment(loan, monthly_rate, num_periods):
         ((1+monthly_rate)**num_periods-1)
 
 
-# the following function should just calculate the total mortgage
 def calculate_total_mortgage(monthly_payment, num_periods):
     '''
     total_amount = monthly_payment * number_of_months
@@ -105,7 +100,6 @@ def calculate_total_mortgage(monthly_payment, num_periods):
     return monthly_payment * num_periods
 
 
-# the following function should just calculate the total interest
 def calculate_total_interest(mortgage, loan):
     '''
     Calculates the amount of total interest
@@ -113,38 +107,24 @@ def calculate_total_interest(mortgage, loan):
     return mortgage - loan
 
 
-# to calculate installments you will need the amount of money borrowed,
-# number of months and interest rate - with that you can calculate the rest
-def calculate_payments(loan, monthly_rate, num_periods,
-                       monthly_payment, total_amount, total_interest):
+def calculate_payments(monthly_rate,
+                       num_periods,
+                       monthly_payment,
+                       total_amount):
     '''
     This function returns a collection of monthly changes in interests and
     principals
     '''
-    # generate a collection of payments in order the print_instalments
-    # function can print it
     payments = list()
-    # you will probably need to calculate monthly payment and total amount
-    # to be paid, before you begin to generate the collection
-
-    # now you can begin to generate the overview of payments
-    # do not forget to recalculate the monthly interest rate for each month
-    # in order it is lowered each month and principal is increased
-    # also do not forget to discount the total amount left to be paid (interest
-    # + loan)
     total_amount_left = total_amount
     for i in range(num_periods + 1):
         interest_part = monthly_rate * total_amount_left
         principal_part = monthly_payment - interest_part
-
         payments.append((i+1,
                          round(interest_part, 2),
                          round(principal_part, 2),
                          round(total_amount_left, 2)))
         total_amount_left -= monthly_payment
-    # return the overview of payments as a list of tuples:
-    # [(month_num,interest,principal,left_to_pay),(month_num,interest,principal,
-    # left_to_pay), etc.]
     return payments
 
 
@@ -159,7 +139,6 @@ def generate_header(loan, num_periods, total_interest, monthly_payment):
     '''
     Generates a list of header strings
     '''
-    # Loan: 2000000 | Years: 30 | Interest: 693880 | Monthly Payment: 7483
     words = []
     words.append("Loan: {0}".format(loan))
     words.append("Years: {0}".format(num_periods // 12))
@@ -175,36 +154,26 @@ def generate_string(words, max_length):
     inner = "|".join(["{0:^{1}}".format(word, max_length) for word in words])
     return "|{0}|".format(inner)
 
-# to print installments you will need the amount of money borrowed,
-# number of months and interest rate - with that you can calculate the rest
+
 def print_instalments(loan, monthly_rate, num_periods):
     '''
     This function prints out all the necessary information about Your mortgage
     '''
-    # you will probably need to calculate monthly payment and total amount
-    # to be paid, total interest, and generate the collection of monthly
-    # payments before you begin to print the report
     monthly_payment = calculate_monthly_payment(loan,
                                                 monthly_rate,
                                                 num_periods)
     total_amount = calculate_total_mortgage(monthly_payment, num_periods)
     total_interest = calculate_total_interest(total_amount, loan)
-    payments = calculate_payments(loan,
-                                  monthly_rate,
+    payments = calculate_payments(monthly_rate,
                                   num_periods,
                                   monthly_payment,
-                                  total_amount,
-                                  total_interest)
-    # think about how those 2 headers can be printed, in order the column
-    # widths are equal - you will probably need to use:
-    # > string formatting methods or
-    # > string formatting expressions
-    # surely you will want to find the optimal length of a row in order
-    # everything enters on each row
-    header_words = generate_header(loan, num_periods, total_interest, monthly_payment)
+                                  total_amount)
+    header_words = generate_header(loan,
+                                   num_periods,
+                                   total_interest,
+                                   monthly_payment)
     max_length = find_max_length(header_words)
     max_length += 2
-    # now you can print the the individual rows for each payment
     print(generate_string(["-"*max_length]*4, max_length))
     print(generate_string(header_words, max_length))
     print(generate_string(["-"*max_length]*4, max_length))
@@ -214,11 +183,9 @@ def print_instalments(loan, monthly_rate, num_periods):
     for payment in payments:
         print(generate_string(payment, max_length))
     print(generate_string(["-"*max_length]*4, max_length))
-    # Payment    |  Interest |    Principal     |      Left to Pay  
-    # Loan: 2000000 | Years: 30 | Interest: 693880 | Monthly Payment: 7483
 
 if __name__ == '__main__':
-    LOAN = 800000
+    LOAN = 2000000
     MONTHLY_RATE = 2.09/100/12
     NUM_PERIODS = 30*12
 
