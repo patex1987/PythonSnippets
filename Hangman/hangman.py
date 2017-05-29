@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-import random
-import re
-
-__taskuid__ = ''
 '''
 The goal of this exercise is to implement the hangman game. The game is
 played by 2 players, in this case by the computer and the human.
@@ -50,6 +45,8 @@ H a _ _ _ a _
 
 
 '''
+import random
+import re
 
 
 def import_words(file_name):
