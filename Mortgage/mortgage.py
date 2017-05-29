@@ -155,11 +155,6 @@ def generate_string(words, max_length):
     return "|{0}|".format(inner)
 
 
-<<<<<<< HEAD
-# to print installments you will need the amount of money borrowed,
-# number of months and interest rate - with that you can calculate the rest
-=======
->>>>>>> refs/remotes/origin/master
 def print_instalments(loan, monthly_rate, num_periods):
     '''
     This function prints out all the necessary information about Your mortgage
@@ -172,18 +167,8 @@ def print_instalments(loan, monthly_rate, num_periods):
     payments = calculate_payments(monthly_rate,
                                   num_periods,
                                   monthly_payment,
-<<<<<<< HEAD
-                                  total_amount,
-                                  total_interest)
-    # think about how those 2 headers can be printed, in order the column
-    # widths are equal - you will probably need to use:
-    # > string formatting methods or
-    # > string formatting expressions
-    # surely you will want to find the optimal length of a row in order
-    # everything enters on each row
-=======
                                   total_amount)
->>>>>>> refs/remotes/origin/master
+
     header_words = generate_header(loan,
                                    num_periods,
                                    total_interest,
@@ -199,11 +184,7 @@ def print_instalments(loan, monthly_rate, num_periods):
     for payment in payments:
         print(generate_string(payment, max_length))
     print(generate_string(["-"*max_length]*4, max_length))
-<<<<<<< HEAD
-    # Payment    |  Interest |    Principal     |      Left to Pay
-    # Loan: 2000000 | Years: 30 | Interest: 693880 | Monthly Payment: 7483
-=======
->>>>>>> refs/remotes/origin/master
+
 
 if __name__ == '__main__':
     LOAN = 2000000
