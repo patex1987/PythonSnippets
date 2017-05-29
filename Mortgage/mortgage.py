@@ -175,6 +175,7 @@ def generate_string(words, max_length):
     inner = "|".join(["{0:^{1}}".format(word, max_length) for word in words])
     return "|{0}|".format(inner)
 
+
 # to print installments you will need the amount of money borrowed,
 # number of months and interest rate - with that you can calculate the rest
 def print_instalments(loan, monthly_rate, num_periods):
@@ -201,7 +202,10 @@ def print_instalments(loan, monthly_rate, num_periods):
     # > string formatting expressions
     # surely you will want to find the optimal length of a row in order
     # everything enters on each row
-    header_words = generate_header(loan, num_periods, total_interest, monthly_payment)
+    header_words = generate_header(loan,
+                                   num_periods,
+                                   total_interest,
+                                   monthly_payment)
     max_length = find_max_length(header_words)
     max_length += 2
     # now you can print the the individual rows for each payment
@@ -214,7 +218,7 @@ def print_instalments(loan, monthly_rate, num_periods):
     for payment in payments:
         print(generate_string(payment, max_length))
     print(generate_string(["-"*max_length]*4, max_length))
-    # Payment    |  Interest |    Principal     |      Left to Pay  
+    # Payment    |  Interest |    Principal     |      Left to Pay
     # Loan: 2000000 | Years: 30 | Interest: 693880 | Monthly Payment: 7483
 
 if __name__ == '__main__':
