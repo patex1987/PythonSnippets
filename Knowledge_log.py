@@ -150,3 +150,13 @@ def test_subset(seq_1, seq_2):
 
 # How can I find the number of arguments of a Python function?
 # https://stackoverflow.com/questions/847936/how-can-i-find-the-number-of-arguments-of-a-python-function
+
+########################################################
+# 2017-Jun-26
+########################################################
+
+# How to list all subfolders
+
+# https://stackoverflow.com/questions/973473/getting-a-list-of-all-subdirectories-in-the-current-directory
+import os
+os.walk(directory)
