@@ -63,13 +63,14 @@ def recursive_walk(maze, x, y, width, height):
         maze[x][y] = 3
     print_maze(maze, width, height, 2, 0.4)
     if maze[x][y] == 2:
-            return True
+        return [(y, x)]
     next_free_blocks = find_next_pos(maze, x, y, width, height)
     if not next_free_blocks:
         pass
     for block in next_free_blocks:
-        if recursive_walk(maze, block[0], block[1], width, height):
-            return True
+        block_state = recursive_walk(maze, block[0], block[1], width, height)
+        if block_state:
+            return [(y, x)] + block_state
     return False
 
 
@@ -144,13 +145,13 @@ def pretty_maze(maze):
 
 if __name__ == '__main__':
     ORIG_MAZE = [[0, 1, 0, 1, 0, 1],
-                 [0, 0, 0, 0, 0, 0],
+                 [2, 0, 0, 0, 0, 0],
                  [1, 1, 0, 1, 0, 1],
                  [0, 0, 1, 0, 0, 0],
                  [0, 1, 0, 0, 1, 0],
-                 [2, 0, 0, 0, 0, 0]]
+                 [0, 0, 0, 0, 0, 0]]
     MAZE = copy.deepcopy(ORIG_MAZE)
     BASE_WIDTH, BASE_HEIGHT = maze_size(MAZE)
-    recursive_walk(MAZE, 0, 0, BASE_WIDTH, BASE_HEIGHT)
+    print(recursive_walk(MAZE, 5, 5, BASE_WIDTH, BASE_HEIGHT))
     MAZE = copy.deepcopy(ORIG_MAZE)
-    bfs_walk(MAZE, 0, 0, BASE_WIDTH, BASE_HEIGHT)
+    # bfs_walk(MAZE, 0, 0, BASE_WIDTH, BASE_HEIGHT)
