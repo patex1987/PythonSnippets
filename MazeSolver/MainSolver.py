@@ -154,4 +154,4 @@ if __name__ == '__main__':
     BASE_WIDTH, BASE_HEIGHT = maze_size(MAZE)
     print(recursive_walk(MAZE, 5, 5, BASE_WIDTH, BASE_HEIGHT))
     MAZE = copy.deepcopy(ORIG_MAZE)
-    # bfs_walk(MAZE, 0, 0, BASE_WIDTH, BASE_HEIGHT)
+    bfs_walk(MAZE, 0, 0, BASE_WIDTH, BASE_HEIGHT)
