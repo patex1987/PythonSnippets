@@ -168,6 +168,7 @@ def print_instalments(loan, monthly_rate, num_periods):
                                   num_periods,
                                   monthly_payment,
                                   total_amount)
+
     header_words = generate_header(loan,
                                    num_periods,
                                    total_interest,
@@ -183,6 +184,7 @@ def print_instalments(loan, monthly_rate, num_periods):
     for payment in payments:
         print(generate_string(payment, max_length))
     print(generate_string(["-"*max_length]*4, max_length))
+
 
 if __name__ == '__main__':
     LOAN = 2000000
