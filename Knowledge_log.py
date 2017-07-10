@@ -160,3 +160,79 @@ def test_subset(seq_1, seq_2):
 # https://stackoverflow.com/questions/973473/getting-a-list-of-all-subdirectories-in-the-current-directory
 import os
 os.walk(directory)
+
+########################################################
+# 2017-Jul-10
+########################################################
+
+# pickle and shelve - object serialization and deserialization
+
+import pickle
+with open('entry.pickle', 'wb') as f:
+    pickle.dump(entry, f)   # entry is the structure to serialize, dump writes the entry to the output file
+    
+# Once the data is saved, this is a way how to load it
+import pickle
+with open('entry.pickle', 'rb') as f:
+    entry = pickle.load(f)
+
+# What if, if we dont want to store the data in a file:
+b = pickle.dumps(entry)
+type(b)
+#<class 'bytes'> - stores it as bytes
+
+# Very good article about this topics
+# http://www.diveintopython3.net/serializing.html
+entry3 = pickle.loads(b)
+
+# Read this about bytes and strings
+# http://www.diveintopython3.net/strings.html#byte-arrays
+
+# python disasembler
+# https://docs.python.org/3.5/library/dis.html#module-dis
+import dis
+
+# Video on pickle
+# https://www.youtube.com/watch?v=2Tw39kZIbhs&ab_channel=sentdex
+
+# What is shelve, whats the relation between pickle and shelve
+
+# pickle is for serializing some object (or objects) as a single bytestream in
+# a file.
+
+# shelve builds on top of pickle and implements a serialization dictionary
+# where objects are pickled, but associated with a key (some string), so you
+# can load your shelved data file and access your pickled objects via keys.
+# This could be more convenient were you to be serializing many objects.
+
+import shelve
+
+integers = [1, 2, 3, 4, 5]
+
+# If you're using Python 2.7, import contextlib and use
+# the line:
+# with contextlib.closing(shelve.open('shelf-example', 'c')) as shelf:
+with shelve.open('shelf-example', 'c') as shelf:
+    shelf['ints'] = integers
+
+# Reading the object from shelve
+import shelve
+
+# If you're using Python 2.7, import contextlib and use
+# the line:
+# with contextlib.closing(shelve.open('shelf-example', 'r')) as shelf:
+with shelve.open('shelf-example', 'r') as shelf:
+    for key in shelf.keys():
+        print(repr(key), repr(shelf[key])))
+
+# https://stackoverflow.com/questions/4103430/what-is-the-difference-between-pickle-and-shelve
+
+# If we load the object from shelve, and updated the methods in the meantime, it can work with the updates
+
+# What is the difference between __getattr__ and __getattribute__
+# https://stackoverflow.com/questions/3278077/difference-between-getattr-vs-getattribute
+
+# getattr(), setattr(), __getattr__(), __setattr()
+
+# __getattr__()
+# https://stackoverflow.com/questions/4295678/understanding-the-difference-between-getattr-and-getattribute
