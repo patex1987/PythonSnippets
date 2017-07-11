@@ -236,3 +236,47 @@ with shelve.open('shelf-example', 'r') as shelf:
 
 # __getattr__()
 # https://stackoverflow.com/questions/4295678/understanding-the-difference-between-getattr-and-getattribute
+
+########################################################
+# 2017-Jul-10
+########################################################
+
+class Foo:
+    __slots__ = ['x']
+    def __init__(self, n):
+        self.x = n
+
+# A slot is nothing more than a memory management nicety: when you define __slots__
+# on a class, you’re telling the Python interpreter that the list of attributes
+# described within are the only attributes this class will ever need, and a dynamic
+# dictionary is not needed to manage the references to other objects within the class
+
+# http://www.python-course.eu/python3_slots.php
+# When we design a class, we can use slots to prevent the dynamic creation of attributes
+
+# http://book.pythontips.com/en/latest/__slots__magic.html
+
+# https://stackoverflow.com/questions/472000/usage-of-slots
+# To deny the creation of a __dict__, you must subclass object
+class Base(object): 
+    __slots__ = ()
+
+# To allow __dict__ creation while subclassing slotted objects,
+# just add '__dict__' to the __slots__ (note that slots are ordered,
+# and you shouldn't repeat slots that are already in parent classes):
+
+class SlottedWithDict(Child): 
+    __slots__ = ('__dict__', 'b')
+ 
+# https://stackoverflow.com/questions/472000/usage-of-slots - best article
+
+
+
+# Descriptors
+
+# https://stackoverflow.com/questions/17330160/how-does-the-property-decorator-work
+# https://stackoverflow.com/questions/22616559/use-cases-for-property-vs-descriptor-vs-getattribute
+# http://intermediatepythonista.com/classes-and-objects-ii-descriptors
+# https://stackoverflow.com/questions/3798835/understanding-get-and-set-and-python-descriptors
+# https://www.ibm.com/developerworks/library/os-pythondescriptors/index.html
+# https://www.blog.pythonlibrary.org/2016/06/10/python-201-what-are-descriptors/
