@@ -239,7 +239,7 @@ with shelve.open('shelf-example', 'r') as shelf:
 
 
 ########################################################
-# 2017-Jul-10
+# 2017-Aug-20
 ########################################################
 
 # How to make compound labels in tkinter gui
